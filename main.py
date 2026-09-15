@@ -711,35 +711,34 @@ if __name__ == "__main__":
         raise ValueError("Duplicate seed values are not allowed")
 
     datasets_to_run = []
+    
+     print("Checking CICIDS2017...")
+     try:
+         cicids_path = kagglehub.dataset_download("ericanacletoribeiro/cicids2017-cleaned-and-preprocessed")
+         X_cic, y_cic = load_cicids2017(cicids_path, sample_size=5000)
+         datasets_to_run.append(("CICIDS2017", X_cic, y_cic))
+     except Exception as e: print(f"Skip CICIDS2017: {e}")
 
-    # Other datasets are intentionally disabled for this UNSW-NB15-only run.
-    # print("Checking CICIDS2017...")
-    # try:
-    #     cicids_path = kagglehub.dataset_download("ericanacletoribeiro/cicids2017-cleaned-and-preprocessed")
-    #     X_cic, y_cic = load_cicids2017(cicids_path, sample_size=5000)
-    #     datasets_to_run.append(("CICIDS2017", X_cic, y_cic))
-    # except Exception as e: print(f"Skip CICIDS2017: {e}")
+     print("Checking NSL-KDD...")
+     try:
+         nsl_path = kagglehub.dataset_download("hassan06/nslkdd")
+         X_nsl, y_nsl = load_nslkdd(nsl_path, sample_size=5000)
+         datasets_to_run.append(("NSL-KDD", X_nsl, y_nsl))
+     except Exception as e: print(f"Skip NSL-KDD: {e}")
 
-    # print("Checking NSL-KDD...")
-    # try:
-    #     nsl_path = kagglehub.dataset_download("hassan06/nslkdd")
-    #     X_nsl, y_nsl = load_nslkdd(nsl_path, sample_size=5000)
-    #     datasets_to_run.append(("NSL-KDD", X_nsl, y_nsl))
-    # except Exception as e: print(f"Skip NSL-KDD: {e}")
+     print("Checking RT-IoT2022...")
+     try:
+         X_rt, y_rt = load_rt_iot2022(sample_size=5000)
+         datasets_to_run.append(("RT-IoT2022", X_rt, y_rt))
+     except Exception as e: print(f"Skip RT-IoT2022: {e}")
 
-    # print("Checking RT-IoT2022...")
-    # try:
-    #     X_rt, y_rt = load_rt_iot2022(sample_size=5000)
-    #     datasets_to_run.append(("RT-IoT2022", X_rt, y_rt))
-    # except Exception as e: print(f"Skip RT-IoT2022: {e}")
-
-    # The simulated-data fallback is also disabled so a failed UNSW load
-    # cannot silently run a different experiment.
-    # if not datasets_to_run:
-    #     print("Using simulated data...")
-    #     X_sim = np.random.randn(2000, 78).astype(np.float32)
-    #     y_sim = np.random.randint(0, 2, size=(2000,)).astype(np.int64)
-    #     datasets_to_run.append(("Simulated", X_sim, y_sim))
+     The simulated-data fallback is also disabled so a failed UNSW load
+     cannot silently run a different experiment.
+     if not datasets_to_run:
+         print("Using simulated data...")
+         X_sim = np.random.randn(2000, 78).astype(np.float32)
+         y_sim = np.random.randint(0, 2, size=(2000,)).astype(np.int64)
+         datasets_to_run.append(("Simulated", X_sim, y_sim))
 
     print("Checking UNSW-NB15...")
     try:
