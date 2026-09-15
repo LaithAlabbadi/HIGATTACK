@@ -2,7 +2,6 @@
 
 This repository contains the PyTorch implementation of HIGAttack, an adversarial attack utilizing an Integrated Hessian interaction matrix and a graph Laplacian penalty. The pipeline evaluates the robustness of a security-focused Multi-Layer Perceptron (MLP) against this attack and standard baselines (FGSM, PGD, JSMA).
 
-The script is currently configured to evaluate against the UNSW-NB15 intrusion detection dataset.
 
 ## Setup
 
@@ -20,7 +19,7 @@ Run the pipeline via the command line. You can specify one or multiple random se
 python main.py --seeds 11,22,33,44,55
 ```
 
-The script automatically downloads the UNSW-NB15 dataset via `kagglehub` if it is not present in the local cache.
+The script automatically downloads the datasets via `kagglehub` if it is not present in the local cache.
 
 ## Pipeline Details
 
